@@ -24,6 +24,11 @@ source ./.secret.sh
 ./pm25.py
 ```
 
+# Resources
+
+- [Environment Canada monitoring station in Burnaby][0]
+
 # License
 
 GPL v3.
+[0]: https://aqicn.org/city/british-comlumbia/burnaby-south
