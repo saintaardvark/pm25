@@ -23,3 +23,7 @@ export INFLUX_PORT=8086
 source ./.secret.sh
 ./pm25.py
 ```
+
+# License
+
+GPL v3.
