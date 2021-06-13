@@ -5,10 +5,8 @@ import os
 import serial
 import time
 
-import click
 from influxdb import InfluxDBClient
 
-ser = serial.Serial('/dev/ttyUSB0')
 
 
 def read_sensor_data(ser):
@@ -43,6 +41,9 @@ def build_influxdb_data(data):
             "pm25": data['pm25'],
             "pm10": data['pm10'],
         },
+	"tags": {
+            "location": "NEWWEST",
+        }
     }
     influx_data.append(measurement)
 
@@ -86,9 +87,7 @@ def write_influx_data(influx_data, influx_client):
     influx_client.write_points(influx_data, time_precision="s")
 
 
-@click.command(short_help="Import CSV file")
-@click.argument("csv_file", type=click.File("r"))
-def main(csv_file):
+def main():
     """
     Main entry point
     """
