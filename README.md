@@ -32,4 +32,9 @@ source ./.secret.sh
 
 GPL v3.
 
+# Future options
+
+- https://github.com/ikalchev/py-sds011
+- https://github.com/menschel/sds011
+
 [0]: https://aqicn.org/city/british-comlumbia/burnaby-south
