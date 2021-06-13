@@ -8,6 +8,8 @@ article](https://www.raspberrypi.org/blog/monitor-air-quality-with-a-raspberry-p
 - Create `.secret.sh`:
 
 ```
+export INFLUX_DB=pm25
+export INFLUX_USER=pm25
 export INFLUX_PASS=my_secret_password
 export INFLUX_HOST=127.0.0.1
 export INFLUX_PORT=8086

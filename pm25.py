@@ -57,10 +57,10 @@ def build_influxdb_client():
     # Setup influx client
     logger = logging.getLogger(__name__)
 
-    DB = "waether"
+    DB = os.getenv("INFLUX_DB")
     host = os.getenv("INFLUX_HOST")
     port = os.getenv("INFLUX_PORT")
-    INFLUX_USER = "weather"
+    INFLUX_USER = os.getenv("INFLUX_USER")
     INFLUX_PASS = os.getenv("INFLUX_PASS")
 
     influx_client = InfluxDBClient(
