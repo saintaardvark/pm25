@@ -8,7 +8,6 @@ import time
 from influxdb import InfluxDBClient
 
 
-
 def read_sensor_data(ser):
     """
     ser: opened serial port
@@ -41,7 +40,7 @@ def build_influxdb_data(data):
             "pm25": data['pm25'],
             "pm10": data['pm10'],
         },
-	"tags": {
+        "tags": {
             "location": "NEWWEST",
         }
     }
