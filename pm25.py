@@ -113,21 +113,18 @@ def main():
     """
     logger = logging.getLogger(__name__)
     sds_client = SDS011(DEFAULT_SERIAL_PORT)
-    sds_client.set_work_period(work_time=5)
-    # ser = serial.Serial('/dev/ttyUSB0')
+    sds_client.set_work_period(work_time=2)
 
-    # influx_client = build_influxdb_client()
+    influx_client = build_influxdb_client()
     while True:
+        # time.sleep(110)
         # data = read_sensor_data(ser)
         data = {}
         data['pm25'], data['pm10'] = sds_client.query()
-        logger.debug(data)
         influx_data = build_influxdb_data(data)
-        # write_influx_data(influx_data, influx_client)
+        write_influx_data(influx_data, influx_client)
         logger.debug(influx_data)
-
-        logger.info("Logged")
-        time.sleep(5)
+        time.sleep(120)
 
 
 if __name__ == "__main__":
