@@ -22,7 +22,11 @@ import os
 import serial
 import time
 
+from py_sds011.sds011 import SDS011
 from influxdb import InfluxDBClient
+
+
+DEFAULT_SERIAL_PORT = '/dev/ttyUSB0'
 
 
 def read_sensor_data(ser):
@@ -108,18 +112,26 @@ def main():
     Main entry point
     """
     logger = logging.getLogger(__name__)
-    ser = serial.Serial('/dev/ttyUSB0')
-    influx_client = build_influxdb_client()
+    sds_client = SDS011(DEFAULT_SERIAL_PORT)
+    sds_client.set_work_period(work_time=5)
+    # ser = serial.Serial('/dev/ttyUSB0')
+
+    # influx_client = build_influxdb_client()
     while True:
-        data = read_sensor_data(ser)
+        # data = read_sensor_data(ser)
+        data = {}
+        data['pm25'], data['pm10'] = sds_client.query()
+        logger.debug(data)
         influx_data = build_influxdb_data(data)
-        write_influx_data(influx_data, influx_client)
+        # write_influx_data(influx_data, influx_client)
+        logger.debug(influx_data)
+
         logger.info("Logged")
         time.sleep(5)
 
 
 if __name__ == "__main__":
     log_fmt = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-    logging.basicConfig(level=logging.INFO, format=log_fmt)
+    logging.basicConfig(level=logging.DEBUG, format=log_fmt)
 
     main()
