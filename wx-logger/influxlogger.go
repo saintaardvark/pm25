@@ -78,6 +78,9 @@ func (i *influxLogger) log(m Measurement) error {
 		whichProbe := m.Name[strings.LastIndex(m.Name, "_")+1:]
 		tags := i.tags
 		tags["probe"] = whichProbe
+		// Want this logged as "Temp", not "soil_temp_3"
+		delete(fields, m.Name)
+		fields["Temp"] = m.Value
 		pt, err = client.NewPoint(abbrevName, tags, fields, time.Now())
 	}
 
