@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"strings"
 	"time"
 
 	"github.com/influxdata/influxdb/client/v2"
@@ -65,7 +66,21 @@ func (i *influxLogger) log(m Measurement) error {
 	}
 
 	abbrevName := GetAbbrev(m.Name)
+
+	// The soil temperature probes are the first time I actually have
+	// multiple instances of a thing.  I'm going to handle this with a
+	// special case :grimace: ; if I get more, I'll need to refactor
+	// here.
+
 	pt, err := client.NewPoint(abbrevName, i.tags, fields, time.Now())
+	if abbrevName == "soil_temp" {
+		// Format: "soil_temp_3"
+		whichProbe := m.Name[strings.LastIndex(m.Name, "_")+1:]
+		tags := i.tags
+		tags["probe"] = whichProbe
+		pt, err = client.NewPoint(abbrevName, tags, fields, time.Now())
+	}
+
 	if err != nil {
 		return fmt.Errorf("error in client.NewPoint: %s", err)
 	}
@@ -84,12 +99,17 @@ func (i *influxLogger) name() string {
 // GetAbbrev returns abbreviation for a particular measurement
 func GetAbbrev(name string) string {
 	log.Printf("[DEBUG] Trying to find match for |%s|\n", name)
+	// See comment in log() up above for details about the soil
+	// temperature probes.
 	measureAbbrevs := map[string]string{
-		"Humd":    "humidity",
-		"Prcp":    "precipitation",
-		"PrcpMtr": "precipitation_meter",
-		"Pres":    "pressure",
-		"Temp":    "temperature",
+		"Humd":        "humidity",
+		"Prcp":        "precipitation",
+		"PrcpMtr":     "precipitation_meter",
+		"Pres":        "pressure",
+		"Temp":        "temperature",
+		"soil_temp_1": "soil_temp",
+		"soil_temp_2": "soil_temp",
+		"soil_temp_3": "soil_temp",
 	}
 	return measureAbbrevs[name]
 }
