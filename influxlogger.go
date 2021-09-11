@@ -105,14 +105,17 @@ func GetAbbrev(name string) string {
 	// See comment in log() up above for details about the soil
 	// temperature probes.
 	measureAbbrevs := map[string]string{
-		"Humd":        "humidity",
-		"Prcp":        "precipitation",
-		"PrcpMtr":     "precipitation_meter",
-		"Pres":        "pressure",
-		"Temp":        "temperature",
-		"soil_temp_1": "soil_temp",
-		"soil_temp_2": "soil_temp",
-		"soil_temp_3": "soil_temp",
+		"Humd":               "humidity",
+		"Prcp":               "precipitation",
+		"PrcpMtr":            "precipitation_meter",
+		"Pres":               "pressure",
+		"Temp":               "temperature",
+		"soil_temp_1":        "soil_temp",
+		"soil_temp_2":        "soil_temp",
+		"soil_temp_3":        "soil_temp",
+		"AnemometerRPM":      "anemometer",
+		"AnemometerRotCount": "anemometer",
+		"AnemometerAvgTime":  "anemometer",
 	}
 	return measureAbbrevs[name]
 }
