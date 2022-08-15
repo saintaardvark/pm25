@@ -106,6 +106,7 @@ func GetAbbrev(name string) string {
 	// temperature probes.
 	measureAbbrevs := map[string]string{
 		"Humd":               "humidity",
+		"Light":              "light",
 		"Prcp":               "precipitation",
 		"PrcpMtr":            "precipitation_meter",
 		"Pres":               "pressure",
