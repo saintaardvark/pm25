@@ -18,6 +18,8 @@ This looks for a few different environment variables:
 
 - USBDEV: the USB serial device to read from
 
+- USBBAUDRATE: Optional; default is 9600.
+
 - NODE: string to describe what node this is ("node1" is what I've
   used in the past)
 

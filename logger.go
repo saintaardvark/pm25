@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -91,7 +92,19 @@ func main() {
 	}
 
 	usbdev := lookUpFromEnvOrDie("USBDEV")
-	c := &serial.Config{Name: usbdev, Baud: 9600}
+	// Most of the time we'll be logging from Arduino, where I've set
+	// baud rate to 9600.  But I'm looking at re-using this logger for
+	// the ESP32, which has a hard-coded baud rate of 115200.
+	//
+	// TODO: Break this out to separate function
+	usbBaudRate := 9600
+	retVal, exists := os.LookupEnv("USBBAUDRATE")
+	if exists {
+		if retVal, err := strconv.Atoi(retVal); err == nil {
+			usbBaudRate = retVal
+		}
+	}
+	c := &serial.Config{Name: usbdev, Baud: usbBaudRate}
 	serialPort, err := serial.OpenPort(c)
 	for err != nil {
 		log.Printf("[WARN] Can't open serial port, trying to sleep it off: %s\n", err)
