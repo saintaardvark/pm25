@@ -15,3 +15,6 @@ test:
 
 rebuild: build
 	sudo supervisorctl restart piwxlogger && tail -F /var/log/supervisor/piwxlogger.log
+
+localrun: build
+	source ./.secret.sh && ./wx-logger
