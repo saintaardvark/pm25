@@ -1,5 +1,8 @@
+SHELL = /bin/bash
 FLAGS=-ldflags "-X main.buildstamp=`date -u '+%Y-%m-%d_%I:%M:%S%p'` -X main.githash=`git rev-parse HEAD`"
-build:
+build: wx-logger
+
+wx-logger: $(wildcard *go)
 	go build $(FLAGS)
 
 send:
