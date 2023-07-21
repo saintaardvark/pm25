@@ -112,6 +112,7 @@ func GetAbbrev(name string) string {
 		"PrcpMtr":            "precipitation_meter",
 		"Pres":               "pressure",
 		"Temp":               "temperature",
+		"BMPTemp":            "bmp_tempertaure",
 		"soil_temp_1":        "soil_temp",
 		"soil_temp_2":        "soil_temp",
 		"soil_temp_3":        "soil_temp",
