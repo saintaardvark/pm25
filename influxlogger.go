@@ -11,6 +11,7 @@ import (
 
 type influxTags map[string]string
 
+// A struct for InfluxDB logging
 type influxLogger struct {
 	ic       client.Client
 	_name    string
