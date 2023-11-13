@@ -5,6 +5,12 @@ article](https://www.raspberrypi.org/blog/monitor-air-quality-with-a-raspberry-p
 
 ## Usage
 
+- Install python3-serial:
+
+```
+sudo apt-get install -y python3-serial
+```
+
 - Create `.secret.sh`:
 
 ```
