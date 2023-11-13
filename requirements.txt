@@ -8,3 +8,5 @@ pytz==2021.1
 requests==2.25.1
 six==1.16.0
 urllib3==1.26.5
+pyserial
+git+https://github.com/ikalchev/py-sds011.git@4d3380a166c90fc1750f70b84beb3bc1f75dee66

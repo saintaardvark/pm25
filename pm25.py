@@ -22,7 +22,7 @@ import os
 import serial
 import time
 
-from py_sds011.sds011 import SDS011
+from sds011 import SDS011
 from influxdb import InfluxDBClient
 
 
