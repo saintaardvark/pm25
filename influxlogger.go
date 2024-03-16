@@ -124,7 +124,7 @@ func GetAbbrev(name string) string {
 		"AnemometerRPM":      "anemometer",
 		"AnemometerRotCount": "anemometer",
 		"AnemometerAvgTime":  "anemometer",
-		"WindDirection":      "wind_direction",
+		"WinDir":             "wind_direction",
 	}
 	return measureAbbrevs[name]
 }
