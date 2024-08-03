@@ -26,7 +26,7 @@ from sds011 import SDS011
 from influxdb import InfluxDBClient
 
 
-DEFAULT_SERIAL_PORT = '/dev/ttyUSB0'
+DEFAULT_SERIAL_PORT = "/dev/ttyUSB0"
 
 
 def read_sensor_data(ser):
@@ -40,10 +40,10 @@ def read_sensor_data(ser):
             datum = ser.read()
             data.append(datum)
 
-        pm25 = int.from_bytes(b''.join(data[2:4]), byteorder='little') / 10
-        pm10 = int.from_bytes(b''.join(data[4:6]), byteorder='little') / 10
+        pm25 = int.from_bytes(b"".join(data[2:4]), byteorder="little") / 10
+        pm10 = int.from_bytes(b"".join(data[4:6]), byteorder="little") / 10
 
-        return({'pm25': pm25, 'pm10': pm10})
+        return {"pm25": pm25, "pm10": pm10}
 
 
 def build_influxdb_data(data):
@@ -58,12 +58,12 @@ def build_influxdb_data(data):
     measurement = {
         "measurement": "pm",
         "fields": {
-            "pm25": data['pm25'],
-            "pm10": data['pm10'],
+            "pm25": data["pm25"],
+            "pm10": data["pm10"],
         },
         "tags": {
             "location": "NEWWEST",
-        }
+        },
     }
     influx_data.append(measurement)
 
@@ -120,7 +120,7 @@ def main():
         # time.sleep(110)
         # data = read_sensor_data(ser)
         data = {}
-        data['pm25'], data['pm10'] = sds_client.query()
+        data["pm25"], data["pm10"] = sds_client.query()
         influx_data = build_influxdb_data(data)
         write_influx_data(influx_data, influx_client)
         logger.debug(influx_data)
