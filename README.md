@@ -19,6 +19,8 @@ export INFLUX_USER=pm25
 export INFLUX_PASS=my_secret_password
 export INFLUX_HOST=127.0.0.1
 export INFLUX_PORT=8086
+# Default is /dev/ttyUSB0, but can be overridden here:
+export SERIAL_PORT=/dev/sds011
 ```
 
 - Run `make setup`

@@ -112,7 +112,8 @@ def main():
     Main entry point
     """
     logger = logging.getLogger(__name__)
-    sds_client = SDS011(DEFAULT_SERIAL_PORT)
+    serial_port = os.getenv("SERIAL_PORT", DEFAULT_SERIAL_PORT)
+    sds_client = SDS011(serial_port)
     sds_client.set_work_period(work_time=2)
 
     influx_client = build_influxdb_client()
