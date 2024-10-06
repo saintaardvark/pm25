@@ -50,3 +50,30 @@ There are no default values for these anymore; this is left to deployment.
 `make docker-build` will build the container.
 
 `make docker` will build the container and start a shell for testing.
+
+# udev rules
+
+To get consistent device names, you can use udev to set device names
+based on the USB IDs.  In the case where you have identical
+serial-to-USB chips -- say, because you have multiple Arduinos
+connected to the same Pi -- you can get around this by ensuring the
+devices stay connected to the same USB slots.
+
+To get the info for a particular device, run:
+
+```
+udevadm info -a -n /dev/ttyUSB0 | grep -i kernels
+```
+
+Once you've got that, you can put rules like this into
+`/etc/udev/rules.d/10-arduino.rules`:
+
+```
+KERNEL=="ttyUSB*", KERNELS=="1-1.2.1.3:1.0", SYMLINK+="plantshield"
+KERNEL=="ttyUSB*", KERNELS=="1-1.2.1.1:1.0", SYMLINK+="sds011"
+KERNEL=="ttyUSB*", KERNELS=="1-1.2.1.2:1.0", SYMLINK+="weatherstation"
+```
+
+Further info:
+https://askubuntu.com/questions/49910/how-to-distinguish-between-identical-usb-to-serial-adapters
+
